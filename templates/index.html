@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette</title>
+    
+    <!-- Link to Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Basic styling for the form */
+        body {
+            font-family: Arial, sans-serif;
+        }
+        
+        form {
+            text-align: center;
+            margin: 20px;
+        }
+
+        label {
+            font-size: 32px; /* Increased to a fixed size */
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, button {
+            font-size: 20px; /* Fixed size */
+            margin: 10px;
+            padding: 10px;
+        }
+
+        /* Heading styling */
+        h1 {
+            font-family: 'Pacifico', cursive;
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin: 10px;
+            letter-spacing: 1px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Palette container with neomorphic style */
+        .palette {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 15px;
+            background: #e0e0e0;
+            box-shadow: 8px 8px 15px #a3a3a3, -8px -8px 15px #ffffff;
+        }
+
+        .input-color, .combination-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        /* Neomorphic style for color boxes */
+        .color-box {
+            height: 100px;
+            width: 100px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            margin: 10px;
+            background: #e0e0e0;
+            box-shadow: inset 8px 8px 15px #a3a3a3, inset -8px -8px 15px #ffffff;
+            transition: all 0.3s ease;
+        }
+
+        /* Hover effect for color boxes */
+        .color-box:hover {
+            box-shadow: 8px 8px 15px #a3a3a3, -8px -8px 15px #ffffff;
+            cursor: pointer;
+        }
+
+        /* Styling for tags */
+        .tag {
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 15px;
+            color: #333;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .palette {
+                width: 90%;
+            }
+
+            label, input, button {
+                font-size: 18px;
+            }
+
+            .color-box {
+                height: 80px;
+                width: 80px;
+            }
+
+            .tag {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .palette {
+                width: 95%;
+            }
+
+            label, input, button {
+                font-size: 16px;
+            }
+
+            .color-box {
+                height: 70px;
+                width: 70px;
+            }
+
+            .tag {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Color Palette Generator</h1>
+
+    <form method="POST">
+        <label for="color_code">ENTER HEX COLOR CODE:</label>
+        <input type="text" id="color_code" name="color_code" placeholder="#264653" required>
+        <button type="submit">Generate</button>
+    </form>
+
+    <div class="palette">
+        <!-- Display input color -->
+        <div class="input-color">
+            <span class="tag">INPUT COLOR:</span>
+            <div class="color-box" style="background-color: {{ base_color }};">{{ base_color }}</div>
+        </div>
+
+        <!-- Display color combinations with tags -->
+        {% for combo_type, colors in color_combinations.items() %}
+        <div class="combination-section">
+            <span class="tag">{{ combo_type }} COLORS:</span>
+            {% for color in colors %}
+            <div class="color-box" style="background-color: {{ color }};">{{ color }}</div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
